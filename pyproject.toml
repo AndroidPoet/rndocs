@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rndocs"
-version = "0.1.0"
+version = "0.2.0"
 description = "React Native docs, offline — CLI + MCP server"
 requires-python = ">=3.11"
 dependencies = [
@@ -20,3 +20,6 @@ rndocs-mcp = "rndocs.mcp_server:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["rndocs*"]
+
+[tool.setuptools.package-data]
+rndocs = ["data/*.db"]

@@ -1,19 +1,32 @@
+import shutil
 import sqlite3
 from pathlib import Path
 from typing import Optional
 
-DB_PATH = Path.home() / ".rndocs" / "docs.db"
+USER_DB = Path.home() / ".rndocs" / "docs.db"
+BUNDLED_DB = Path(__file__).parent / "data" / "docs.db"
+
+
+def _active_db() -> Path:
+    """Use the user's synced DB if it exists, otherwise fall back to the bundled one."""
+    return USER_DB if USER_DB.exists() else BUNDLED_DB
 
 
 def get_db() -> sqlite3.Connection:
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
+    path = _active_db()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path)
     conn.row_factory = sqlite3.Row
     return conn
 
 
 def init_db() -> sqlite3.Connection:
-    conn = get_db()
+    USER_DB.parent.mkdir(parents=True, exist_ok=True)
+    # If no user DB yet, seed from bundled so sync can update in place
+    if not USER_DB.exists() and BUNDLED_DB.exists():
+        shutil.copy2(BUNDLED_DB, USER_DB)
+    conn = sqlite3.connect(USER_DB)
+    conn.row_factory = sqlite3.Row
     conn.executescript("""
         CREATE TABLE IF NOT EXISTS docs (
             id        INTEGER PRIMARY KEY AUTOINCREMENT,
