@@ -1,39 +1,45 @@
 # rndocs
 
-React Native docs in your terminal — search and read without opening a browser.
+**rndocs** is a CLI tool that lets you search and read React Native documentation offline — no browser needed. It downloads the full React Native docs to your machine and gives you instant local search from the terminal.
 
----
+## Key Features
 
-## Install
+- Search the entire React Native docs instantly from your terminal
+- Read full documentation pages without opening a browser
+- Works completely offline after the initial sync
+- Integrates with Claude Code and other AI assistants as an MCP server
+
+## Requirements
+
+- Python 3.11 or later
+- macOS, Linux, or Windows
+
+## Installation
 
 ```bash
 pip install rndocs
 ```
 
-## Download the docs
+Then download the docs once:
 
 ```bash
 rndocs sync
 ```
-
-That's it. Everything works offline after this.
-
----
 
 ## Usage
 
 **Search**
 ```bash
 rndocs search "FlatList"
-rndocs search "how to handle keyboard"
 rndocs search "animation"
+rndocs search "handle keyboard"
 ```
 
 **Read a page**
 ```bash
 rndocs get flatlist
-rndocs get stylesheet
 rndocs get animated
+rndocs get stylesheet
 ```
 
 **Browse all pages**
@@ -41,12 +47,10 @@ rndocs get animated
 rndocs ls
 ```
 
-**Keep docs up to date**
+**Refresh docs**
 ```bash
 rndocs sync
 ```
-
----
 
 ## Claude Code Integration
 
@@ -62,4 +66,4 @@ Add to your Claude Code MCP settings:
 }
 ```
 
-Claude can now search and read React Native docs directly in your conversations.
+Claude can now search and read React Native docs directly inside your conversations.
