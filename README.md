@@ -1,5 +1,7 @@
 # rndocs
 
+![rndocs banner](banner.png)
+
 **rndocs** is a CLI tool that lets you search and read React Native documentation offline — no browser needed. It downloads the full React Native docs to your machine and gives you instant local search from the terminal.
 
 ## Key Features
